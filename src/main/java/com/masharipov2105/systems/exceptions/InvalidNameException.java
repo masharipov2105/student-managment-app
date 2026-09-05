@@ -6,4 +6,10 @@ public class InvalidNameException extends StudentException{
 
 		super("Invalid name; please use only letters.");
 	}
+
+	//overloading
+	public InvalidNameException(String message){
+
+		super(message);
+	}
 }
