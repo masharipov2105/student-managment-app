@@ -1,49 +1,31 @@
 package com.masharipov2105.systems.models;
 
-import java.time.LocalDate;
-
-public class StudentModel{
+public class StudentRequestModel{
 
 	//fields
-	private long id; // public
 	private String firstName; // public
 	private String lastName; // public
 	private int age; // public
 	private String gender; //public
-	private LocalDate createAt; //public 
-
 	private String password; //secret e.g sha-256ueioqweu8912eu19eu1928eu1928eu12eu19eu9
-	private LocalDate updateAt; //secret
 
 	//constructor
-	public StudentModel(
-		long id_, 
+	public StudentRequestModel(
 		String firstName_, 
 		String lastName_, 
 		int age_, 
 		String gender_, 
-		LocalDate createAt_, 
-		String password_, 
-		LocalDate updateAt_
+		String password_
 	){
-
 		//initialize
-		this.id = id_;
 		this.firstName = firstName_;
 		this.lastName = lastName_;
 		this.age = age_;
 		this.gender = gender_;
-		this.createAt = createAt_;
 		this.password = password_;
-		this.updateAt = updateAt_;
 	}
 
 	//getter
-	public long getId(){
-
-		return this.id;
-	}
-
 	public String getFirstName(){
 
 		return this.firstName;
@@ -64,29 +46,14 @@ public class StudentModel{
 		return this.gender;
 	}
 
-	public LocalDate getCreateAt(){
-
-		return this.createAt;
-	}
-
 	public String getPassword(){
 
 		return this.password;
 	}
 
-	public LocalDate getUpdateAt(){
-
-		return this.updateAt;
-	}
-
 
 
 	// setters
-	public void setId(long newId){
-
-		this.id = newId;
-	}
-
 	public void setFirstName(String newName){
 
 		this.firstName = newName;
@@ -107,18 +74,8 @@ public class StudentModel{
 		this.gender = newGender;
 	}
 
-	public void setCreateAt(LocalDate newDate){
-
-		this.createAt = newDate;
-	}
-
 	public void setPassword(String newPassword){
 
 		this.password = newPassword;
-	}
-
-	public void setUpdateAt(LocalDate newDate){
-
-		this.updateAt = newDate;
 	}
 }
