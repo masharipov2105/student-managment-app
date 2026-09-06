@@ -119,4 +119,32 @@ public class InputValidatorTest{
 		Exception exp = assertThrows(InvalidGenderException.class, ()->{InputValidator.parseGender("JDskdk");});
 		assertEquals("Invalid gender; please select one (male/female)", exp.getMessage());
 	}
+
+
+	//========================================== parsePassword =================================
+	@Test
+	void testParsePasswordSucces() throws InvalidNameException{
+
+		assertEquals("Qwer1234", InputValidator.parsePassword("Qwer1234"));
+	}
+
+	@Test
+	void testparsePasswordNullAndEmptyValue() throws InvalidNameException{
+
+		Exception exp = assertThrows(InvalidNameException.class, ()->{InputValidator.parsePassword(null);});
+		assertEquals("The field cannot be empty.", exp.getMessage());
+
+		Exception exp2 = assertThrows(InvalidNameException.class, ()->{InputValidator.parsePassword("   ");});
+		assertEquals("The field cannot be empty.", exp2.getMessage());
+	}
+
+	@Test
+	void testparsePasswordInvalidLength() throws InvalidNameException{
+
+		Exception exp = assertThrows(InvalidNameException.class, ()->{InputValidator.parsePassword("Qwe");});
+		assertEquals("The password length cannot be less than 4 characters or greater than 50 characters.", exp.getMessage());
+
+		Exception exp2 = assertThrows(InvalidNameException.class, ()->{InputValidator.parsePassword("Qwejst05r3Qwejst05r3Qwejst05r3Qwejst05r3Qwejst05r3Qwejst05r3");});
+		assertEquals("The password length cannot be less than 4 characters or greater than 50 characters.", exp2.getMessage());
+	}
 }

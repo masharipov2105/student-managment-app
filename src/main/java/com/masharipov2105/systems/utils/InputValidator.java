@@ -76,15 +76,31 @@ public class InputValidator{
 			throw new InvalidGenderException("The field cannot be empty.");
 		}
 
-		if (data.equals("male") || data.equals("Male") || data.equals("m") || data.equals("M") || data.equals("MALE")){
+		if (data.trim().equals("male") || data.trim().equals("Male") || data.trim().equals("m") || data.trim().equals("M") || data.trim().equals("MALE")){
 
 			return "male";
-		} else if (data.equals("female") || data.equals("Female") || data.equals("f") || data.equals("F") || data.equals("FEMALE")){
+		} else if (data.trim().equals("female") || data.trim().equals("Female") || data.trim().equals("f") || data.trim().equals("F") || data.trim().equals("FEMALE")){
 
 			return "female";
 		} else{
 
 			throw new InvalidGenderException();
 		}
+	}
+
+
+	public static String parsePassword(String passwd) throws InvalidNameException{
+
+		if (passwd == null || passwd.trim().isEmpty()){
+
+			throw new InvalidNameException("The field cannot be empty.");
+		}
+
+		if (passwd.trim().length() < 4 || passwd.trim().length() > 50){
+
+			throw new InvalidNameException("The password length cannot be less than 4 characters or greater than 50 characters.");
+		}
+
+		return passwd.trim();
 	}
 }
