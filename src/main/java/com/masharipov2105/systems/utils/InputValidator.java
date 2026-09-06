@@ -67,4 +67,24 @@ public class InputValidator{
 			throw new InvalidAgeException();
 		}
 	}
+
+
+	public static String parseGender(String data) throws InvalidGenderException{
+
+		if (data == null || data.trim().isEmpty()){
+
+			throw new InvalidGenderException("The field cannot be empty.");
+		}
+
+		if (data.equals("male") || data.equals("Male") || data.equals("m") || data.equals("M") || data.equals("MALE")){
+
+			return "male";
+		} else if (data.equals("female") || data.equals("Female") || data.equals("f") || data.equals("F") || data.equals("FEMALE")){
+
+			return "female";
+		} else{
+
+			throw new InvalidGenderException();
+		}
+	}
 }

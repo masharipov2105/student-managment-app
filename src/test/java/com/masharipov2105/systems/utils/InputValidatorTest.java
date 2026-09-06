@@ -78,4 +78,45 @@ public class InputValidatorTest{
 		assertEquals("The age range cannot be under 18. Max 150.", exp2.getMessage());
 	}
 
+
+
+	//==================================== parseGender =========================================
+	@Test
+	void testParseGenderMaleSuccess() throws InvalidGenderException{
+
+		assertEquals("male", InputValidator.parseGender("MALE"));
+		assertEquals("male", InputValidator.parseGender("Male"));
+		assertEquals("male", InputValidator.parseGender("male"));
+		assertEquals("male", InputValidator.parseGender("M"));
+		assertEquals("male", InputValidator.parseGender("m"));
+
+	}
+
+	@Test
+	void testParseGenderFemaleSuccess() throws InvalidGenderException{
+
+		assertEquals("female", InputValidator.parseGender("FEMALE"));
+		assertEquals("female", InputValidator.parseGender("Female"));
+		assertEquals("female", InputValidator.parseGender("female"));
+		assertEquals("female", InputValidator.parseGender("F"));
+		assertEquals("female", InputValidator.parseGender("f"));
+
+	}
+
+	@Test
+	void testParseGenderNullAndEmptyValue() throws InvalidGenderException{
+
+		Exception exp = assertThrows(InvalidGenderException.class, ()->{InputValidator.parseGender(null);});
+		assertEquals("The field cannot be empty.", exp.getMessage());
+
+		Exception exp2 = assertThrows(InvalidGenderException.class, ()->{InputValidator.parseGender("");});
+		assertEquals("The field cannot be empty.", exp2.getMessage());
+	}
+
+	@Test
+	void testParseGenderInvalidValue() throws InvalidGenderException{
+
+		Exception exp = assertThrows(InvalidGenderException.class, ()->{InputValidator.parseGender("JDskdk");});
+		assertEquals("Invalid gender; please select one (male/female)", exp.getMessage());
+	}
 }

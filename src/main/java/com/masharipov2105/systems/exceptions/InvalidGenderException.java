@@ -6,4 +6,10 @@ public class InvalidGenderException extends StudentException{
 
 		super("Invalid gender; please select one (male/female)");
 	}
+
+	//overloading
+	public InvalidGenderException(String message){
+
+		super(message);
+	}
 }
