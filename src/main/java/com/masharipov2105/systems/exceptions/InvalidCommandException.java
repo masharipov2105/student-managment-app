@@ -6,4 +6,10 @@ public class InvalidCommandException extends StudentException{
 
 		super("Command does not exist; please enter 'help'.");
 	}
+
+	//overloading
+	public InvalidCommandException(String message){
+
+		super(message);
+	}
 }

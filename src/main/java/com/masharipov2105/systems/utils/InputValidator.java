@@ -9,6 +9,7 @@ public class InputValidator{
 		throw new UnsupportedOperationException("Utility class cannot be instantiated!");
 	}
 
+
 	public static String parseName(String data) throws InvalidNameException{
 
 		final String bannedCharacters = "0123456789!@#$%^&*()_+-=<|>?,./';:}{][";
@@ -44,6 +45,7 @@ public class InputValidator{
 
 		return (data.substring(0, 1).toUpperCase() + data.substring(1));
 	}
+
 
 	public static int parseAge(String ageData) throws InvalidAgeException{
 
@@ -103,4 +105,42 @@ public class InputValidator{
 
 		return passwd.trim();
 	}
+
+
+	public static String parseCommand(String command) throws InvalidCommandException{
+
+		if (command == null || command.trim().isEmpty()){
+
+			throw new InvalidCommandException("empty command, continue");
+		}
+
+		// exit command
+		if (command.trim().equals("quit") || command.trim().equals("exit") || command.trim().equals("q")){
+
+			return "quit";
+		} 
+
+		// show command
+		else if(command.trim().equals("show") || command.trim().equals("Show") || command.trim().equals("SHOW")){
+
+			return "show";
+		}
+
+		// edit command
+		else if(command.trim().equals("edit") || command.trim().equals("Edit") || command.trim().equals("EDIT")){
+
+			return "edit";
+		}
+
+		// delete command
+		else if(command.trim().equals("delete") || command.trim().equals("del") || command.trim().equals("Del") || command.trim().equals("DEL") || command.trim().equals("Delete") || command.trim().equals("DELETE")){
+
+			return "delete";
+		}
+		// command not found
+		else{
+
+			throw new InvalidCommandException();
+		}
+	} 
 }

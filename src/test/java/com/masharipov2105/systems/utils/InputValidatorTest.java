@@ -147,4 +147,43 @@ public class InputValidatorTest{
 		Exception exp2 = assertThrows(InvalidNameException.class, ()->{InputValidator.parsePassword("Qwejst05r3Qwejst05r3Qwejst05r3Qwejst05r3Qwejst05r3Qwejst05r3");});
 		assertEquals("The password length cannot be less than 4 characters or greater than 50 characters.", exp2.getMessage());
 	}
+
+	//============================== parseCommand =======================================
+	@Test
+	void testParseCommandSucess() throws InvalidCommandException{
+
+		assertEquals("show", InputValidator.parseCommand("show"));
+		assertEquals("show", InputValidator.parseCommand("Show"));
+		assertEquals("show", InputValidator.parseCommand("SHOW"));
+		assertEquals("quit", InputValidator.parseCommand("quit"));
+		assertEquals("quit", InputValidator.parseCommand("exit"));
+		assertEquals("quit", InputValidator.parseCommand("q"));
+		assertEquals("edit", InputValidator.parseCommand("edit"));
+		assertEquals("edit", InputValidator.parseCommand("Edit"));
+		assertEquals("edit", InputValidator.parseCommand("EDIT"));
+		assertEquals("delete", InputValidator.parseCommand("delete"));
+		assertEquals("delete", InputValidator.parseCommand("del"));
+		assertEquals("delete", InputValidator.parseCommand("Del"));
+		assertEquals("delete", InputValidator.parseCommand("DEL"));
+		assertEquals("delete", InputValidator.parseCommand("Delete"));
+		assertEquals("delete", InputValidator.parseCommand("DELETE"));
+		
+	}
+
+	@Test
+	void testParseCommandNullAndEmptyValue() throws InvalidCommandException{
+
+		Exception exp = assertThrows(InvalidCommandException.class, ()->{InputValidator.parseCommand(null);});
+		assertEquals("empty command, continue", exp.getMessage());
+
+		Exception exp2 = assertThrows(InvalidCommandException.class, ()->{InputValidator.parseCommand(null);});
+		assertEquals("empty command, continue", exp2.getMessage());
+	}
+
+	@Test
+	void testParseCommandInvalidCommands(){
+
+		Exception exp = assertThrows(InvalidCommandException.class, ()->{InputValidator.parseCommand("ajskl");});
+		assertEquals("Command does not exist; please enter 'help'.", exp.getMessage());
+	}
 }
