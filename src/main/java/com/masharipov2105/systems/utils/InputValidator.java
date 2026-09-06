@@ -44,4 +44,27 @@ public class InputValidator{
 
 		return (data.substring(0, 1).toUpperCase() + data.substring(1));
 	}
+
+	public static int parseAge(String ageData) throws InvalidAgeException{
+
+		if (ageData == null || ageData.trim().isEmpty()){
+
+			throw new InvalidAgeException("The field cannot be empty.");
+		}
+
+		try{
+
+			int age = Integer.parseInt(ageData);
+
+			if (age < 18 || age > 150){
+
+				throw new InvalidAgeException("The age range cannot be under 18. Max 150.");
+			}
+
+			return age;
+		} catch(NumberFormatException e){
+
+			throw new InvalidAgeException();
+		}
+	}
 }

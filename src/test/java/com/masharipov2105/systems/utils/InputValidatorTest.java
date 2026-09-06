@@ -7,6 +7,8 @@ import com.masharipov2105.systems.exceptions.*;
 
 public class InputValidatorTest{
 
+
+    //=============================== parseName ====================================
 	@Test
 	void testInputValidatorSuccess() throws InvalidNameException{
 
@@ -39,4 +41,41 @@ public class InputValidatorTest{
 		Exception exp = assertThrows(InvalidNameException.class, ()->{InputValidator.parseName("Alisher77!");});
 		assertEquals("Invalid name; please use only letters.", exp.getMessage());
 	}
+
+
+	//================================== parseAge ================================================
+	@Test
+	void testParseAgeSuccess() throws InvalidAgeException{
+
+		assertEquals(23, InputValidator.parseAge("23"));
+	} 
+
+	@Test
+	void testparseAgeNullAndEmptyValue() throws InvalidAgeException{
+
+		Exception exp = assertThrows(InvalidAgeException.class, ()->{InputValidator.parseAge(null);});
+		assertEquals("The field cannot be empty.", exp.getMessage());
+
+		Exception exp2 = assertThrows(InvalidAgeException.class, ()->{InputValidator.parseAge("");});
+		assertEquals("The field cannot be empty.", exp2.getMessage());
+
+	}
+
+	@Test
+	void testParseAgeInvalidValue() throws InvalidAgeException{
+
+		Exception exp = assertThrows(InvalidAgeException.class, ()->{InputValidator.parseAge("24r");});
+		assertEquals("Age in incorrect format", exp.getMessage());
+	}
+
+	@Test
+	void testparseAgeInvalidValue2() throws InvalidAgeException{
+
+		Exception exp = assertThrows(InvalidAgeException.class, ()->{InputValidator.parseAge("15");});
+		assertEquals("The age range cannot be under 18. Max 150.", exp.getMessage());
+
+		Exception exp2 = assertThrows(InvalidAgeException.class, ()->{InputValidator.parseAge("155");});
+		assertEquals("The age range cannot be under 18. Max 150.", exp2.getMessage());
+	}
+
 }

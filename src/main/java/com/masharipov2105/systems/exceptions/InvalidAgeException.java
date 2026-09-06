@@ -6,4 +6,10 @@ public class InvalidAgeException extends StudentException{
 
 		super("Age in incorrect format");
 	}
+
+	//overloading
+	public InvalidAgeException(String message){
+
+		super(message);
+	}
 }
