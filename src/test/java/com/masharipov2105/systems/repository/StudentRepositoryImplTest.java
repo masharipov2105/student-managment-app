@@ -20,9 +20,10 @@ public class StudentRepositoryImplTest{
 
 		assertEquals("[]", studentRepo.getAll().toString());
 
-		studentRepo.save(1L, model);
+		boolean result = studentRepo.save(1L, model);
 
 		assertEquals(false, "[]".equals(studentRepo.getAll().toString()));
+		assertEquals(true, result);
 	}
 
 	@Test
@@ -31,7 +32,8 @@ public class StudentRepositoryImplTest{
 		StudentModel model = new StudentModel(1l,"Ali","Valiev",20,"male",LocalDate.now(),"sha-256qoeiqpewiqpeiqpweipqoeqpw12",LocalDate.now());
 		StudentRepository studentRepo = new StudentRepositoryImpl();
 
-		studentRepo.save(1l, model);
+		boolean result = studentRepo.save(1l, model);
+		assertEquals(true, result);
 
 		assertEquals(1l, studentRepo.getAll().get(0).getId());
 		assertEquals("Ali", studentRepo.getAll().get(0).getFirstName());
@@ -50,7 +52,8 @@ public class StudentRepositoryImplTest{
 		StudentModel model = new StudentModel(1l,"Ali","Valiev",20,"male",LocalDate.now(),"sha-256qoeiqpewiqpeiqpweipqoeqpw12",LocalDate.now());
 		StudentRepository studentRepo = new StudentRepositoryImpl();
 
-		studentRepo.save(1l, model);
+		boolean result = studentRepo.save(1l, model);
+		assertEquals(true, result);
 
 		assertEquals(1l,studentRepo.getId(1l).getId());
 		assertEquals("Ali", studentRepo.getId(1l).getFirstName());
@@ -68,10 +71,12 @@ public class StudentRepositoryImplTest{
 		StudentModel model = new StudentModel(1l,"Ali","Valiev",20,"male",LocalDate.now(),"sha-256qoeiqpewiqpeiqpweipqoeqpw12",LocalDate.now());
 		StudentRepository studentRepo = new StudentRepositoryImpl();
 
-		studentRepo.save(1l, model);
+		boolean result = studentRepo.save(1l, model);
+		assertEquals(true, result);
 		assertEquals(false, "[]".equals(studentRepo.getAll().toString()));
 
-		studentRepo.removeId(1l);
+		boolean idDel = studentRepo.removeId(1l);
+		assertEquals(true, idDel);
 
 		assertEquals(true, "[]".equals(studentRepo.getAll().toString()));
 	}
@@ -82,10 +87,12 @@ public class StudentRepositoryImplTest{
 		StudentModel model = new StudentModel(1l,"Ali","Valiev",20,"male",LocalDate.now(),"sha-256qoeiqpewiqpeiqpweipqoeqpw12",LocalDate.now());
 		StudentRepository studentRepo = new StudentRepositoryImpl();
 
-		studentRepo.save(1l, model);
+		boolean result = studentRepo.save(1l, model);
+		assertEquals(true, result);
 
 		StudentModel model2 = new StudentModel(1l,"Olivia","Alderson",25,"female",LocalDate.now(),"sha-256qoeiqpewiqpeiqpweipqoeqpw12",LocalDate.now());
-		studentRepo.updateId(1l, model2);
+		boolean isUpdate = studentRepo.updateId(1l, model2);
+		assertEquals(true, isUpdate);
 
 		assertEquals(1l,studentRepo.getId(1l).getId());
 		assertEquals("Olivia", studentRepo.getId(1l).getFirstName());

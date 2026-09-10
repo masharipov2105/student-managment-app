@@ -1,6 +1,7 @@
 package com.masharipov2105.systems.repository;
 
 import com.masharipov2105.systems.models.StudentModel;
+import com.masharipov2105.systems.exceptions.*;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -15,9 +16,16 @@ public class StudentRepositoryImpl implements StudentRepository{
 	}
 
 	@Override
-	public void save(long id, StudentModel model){
+	public boolean save(long id, StudentModel model){
 
-		this.data.put(id, model);
+		try{
+
+			this.data.put(id, model);
+			return true;
+		} catch(Exception e){
+
+			return false;
+		}
 	}
 
 	@Override
@@ -34,15 +42,22 @@ public class StudentRepositoryImpl implements StudentRepository{
 	}
 
 	@Override
-	public void removeId(long id){
+	public boolean removeId(long id){
 
-		this.data.remove(id);
+		return this.data.remove(id) != null;
 	}
 
 	@Override
-	public void updateId(long id, StudentModel model){
+	public boolean updateId(long id, StudentModel model){
 
-		this.data.put(id, model);
+		try{
+
+			this.data.put(id, model);
+			return true;
+		} catch(Exception e){
+
+			return false;
+		}
 	}
 
 	@Override

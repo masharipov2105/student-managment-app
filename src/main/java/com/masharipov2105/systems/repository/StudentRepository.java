@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public interface StudentRepository{
 
-	void save(long id, StudentModel model);
+	boolean save(long id, StudentModel model);
 	ArrayList<StudentModel> getAll();
 	StudentModel getId(long id);
-	void removeId(long id);
-	void updateId(long id, StudentModel model);
+	boolean removeId(long id);
+	boolean updateId(long id, StudentModel model);
 	void removeAll();
 }
