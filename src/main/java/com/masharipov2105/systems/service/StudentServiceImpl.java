@@ -25,6 +25,7 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public ArrayList<StudentResponseModel> showAll(){
 
+		this.response.clear();
 		ArrayList<StudentModel> model = this.repo.getAll();
 
 		for (StudentModel mod : model){
@@ -65,6 +66,36 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public boolean create(StudentRequestModel model) throws StudentException{
 
+        // validate first name
+		if (model.getFirstName().trim().length() < 2){
+
+			throw new InvalidNameException("first name is minimum length: 3 letters");
+		}
+
+		// validate last name
+		if (model.getLastName().trim().length() < 2){
+
+			throw new InvalidNameException("last name is minimum length: 3 letters");
+		}
+
+		//validate age
+		if (model.getAge() < 18){
+
+			throw new InvalidAgeException("Age cannot be under 18.");
+		}
+
+		//validate gender
+		if (!model.getGender().trim().equals("male") && !model.getGender().trim().equals("female")){
+
+			throw new InvalidGenderException();
+		}
+
+		//validate password
+		if (model.getPassword().trim().length() < 4 || model.getPassword().trim().length() > 50){
+
+			throw new StudentException("The password length cannot be less than 4 characters or greater than 50 characters.");
+		}
+
 		try{
 
 			StudentModel newModel = new StudentModel(
@@ -88,6 +119,36 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public boolean update(long id, StudentRequestModel updateModel) throws StudentException{
+
+		// validate first name
+		if (updateModel.getFirstName().trim().length() < 2){
+
+			throw new InvalidNameException("first name is minimum length: 3 letters");
+		}
+
+		// validate last name
+		if (updateModel.getLastName().trim().length() < 2){
+
+			throw new InvalidNameException("last name is minimum length: 3 letters");
+		}
+
+		//validate age
+		if (updateModel.getAge() < 18){
+
+			throw new InvalidAgeException("Age cannot be under 18.");
+		}
+
+		//validate gender
+		if (!updateModel.getGender().trim().equals("male") && !updateModel.getGender().trim().equals("female")){
+
+			throw new InvalidGenderException();
+		}
+
+		//validate password
+		if (updateModel.getPassword().trim().length() < 4 || updateModel.getPassword().trim().length() > 50){
+
+			throw new StudentException("The password length cannot be less than 4 characters or greater than 50 characters.");
+		}
 
 		try{
 
@@ -128,5 +189,6 @@ public class StudentServiceImpl implements StudentService{
 	public void dropAll(){
 
 		this.repo.removeAll();
+		this.response.clear();
 	}
 }

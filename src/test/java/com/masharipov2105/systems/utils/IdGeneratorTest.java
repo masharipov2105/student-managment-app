@@ -8,6 +8,7 @@ public class IdGeneratorTest{
 	@Test
 	void testGenerateId(){
 
+		IdGenerator.reset();
 		assertEquals(1L, IdGenerator.generateId());
 		assertEquals(2L, IdGenerator.generateId());
 		assertEquals(3L, IdGenerator.generateId());
