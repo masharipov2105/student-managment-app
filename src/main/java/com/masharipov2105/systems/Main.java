@@ -1,9 +1,17 @@
 package com.masharipov2105.systems;
 
+import com.masharipov2105.systems.controller.*;
+import com.masharipov2105.systems.service.*;
+import com.masharipov2105.systems.exceptions.StudentException;
+
 public class Main {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws StudentException{
 
-        System.out.println("Hello World");
+        StudentService service = new StudentServiceImpl();
+        StudentController controller = new StudentController(service);
+
+        controller.start();
+        
     }
 }

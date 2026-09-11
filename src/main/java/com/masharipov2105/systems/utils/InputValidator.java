@@ -78,10 +78,10 @@ public class InputValidator{
 			throw new InvalidGenderException("The field cannot be empty.");
 		}
 
-		if (data.trim().equals("male") || data.trim().equals("Male") || data.trim().equals("m") || data.trim().equals("M") || data.trim().equals("MALE")){
+		if (data.trim().equals("male")){
 
 			return "male";
-		} else if (data.trim().equals("female") || data.trim().equals("Female") || data.trim().equals("f") || data.trim().equals("F") || data.trim().equals("FEMALE")){
+		} else if (data.trim().equals("female")){
 
 			return "female";
 		} else{
@@ -114,29 +114,54 @@ public class InputValidator{
 			throw new InvalidCommandException("empty command, continue");
 		}
 
-		// exit command
-		if (command.trim().equals("quit") || command.trim().equals("exit") || command.trim().equals("q")){
+		// help command
+		if (command.trim().equals("help")){
 
-			return "quit";
-		} 
+			return "help";
+		}
+
+		//list command
+		else if(command.trim().equals("list")){
+
+			return "list";
+		}
 
 		// show command
-		else if(command.trim().equals("show") || command.trim().equals("Show") || command.trim().equals("SHOW")){
+		else if(command.trim().equals("show")){
 
 			return "show";
 		}
 
+		//create command
+		else if (command.trim().equals("create")){
+
+			return "create";
+		}
+
 		// edit command
-		else if(command.trim().equals("edit") || command.trim().equals("Edit") || command.trim().equals("EDIT")){
+		else if(command.trim().equals("edit")){
 
 			return "edit";
 		}
 
 		// delete command
-		else if(command.trim().equals("delete") || command.trim().equals("del") || command.trim().equals("Del") || command.trim().equals("DEL") || command.trim().equals("Delete") || command.trim().equals("DELETE")){
+		else if(command.trim().equals("delete")){
 
 			return "delete";
 		}
+
+		//clear command
+		else if(command.trim().equals("clear")){
+
+			return "clear";
+		}
+
+		// exit command
+		else if (command.trim().equals("quit")){
+
+			return "quit";
+		} 
+
 		// command not found
 		else{
 

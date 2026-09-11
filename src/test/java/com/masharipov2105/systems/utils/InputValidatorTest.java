@@ -84,23 +84,13 @@ public class InputValidatorTest{
 	@Test
 	void testParseGenderMaleSuccess() throws InvalidGenderException{
 
-		assertEquals("male", InputValidator.parseGender("MALE"));
-		assertEquals("male", InputValidator.parseGender("Male"));
 		assertEquals("male", InputValidator.parseGender("male"));
-		assertEquals("male", InputValidator.parseGender("M"));
-		assertEquals("male", InputValidator.parseGender("m"));
-
 	}
 
 	@Test
 	void testParseGenderFemaleSuccess() throws InvalidGenderException{
 
-		assertEquals("female", InputValidator.parseGender("FEMALE"));
-		assertEquals("female", InputValidator.parseGender("Female"));
 		assertEquals("female", InputValidator.parseGender("female"));
-		assertEquals("female", InputValidator.parseGender("F"));
-		assertEquals("female", InputValidator.parseGender("f"));
-
 	}
 
 	@Test
@@ -152,22 +142,14 @@ public class InputValidatorTest{
 	@Test
 	void testParseCommandSucess() throws InvalidCommandException{
 
+		assertEquals("help", InputValidator.parseCommand("help"));
+		assertEquals("list", InputValidator.parseCommand("list"));
 		assertEquals("show", InputValidator.parseCommand("show"));
-		assertEquals("show", InputValidator.parseCommand("Show"));
-		assertEquals("show", InputValidator.parseCommand("SHOW"));
-		assertEquals("quit", InputValidator.parseCommand("quit"));
-		assertEquals("quit", InputValidator.parseCommand("exit"));
-		assertEquals("quit", InputValidator.parseCommand("q"));
+		assertEquals("create", InputValidator.parseCommand("create"));
 		assertEquals("edit", InputValidator.parseCommand("edit"));
-		assertEquals("edit", InputValidator.parseCommand("Edit"));
-		assertEquals("edit", InputValidator.parseCommand("EDIT"));
 		assertEquals("delete", InputValidator.parseCommand("delete"));
-		assertEquals("delete", InputValidator.parseCommand("del"));
-		assertEquals("delete", InputValidator.parseCommand("Del"));
-		assertEquals("delete", InputValidator.parseCommand("DEL"));
-		assertEquals("delete", InputValidator.parseCommand("Delete"));
-		assertEquals("delete", InputValidator.parseCommand("DELETE"));
-		
+		assertEquals("clear", InputValidator.parseCommand("clear"));
+		assertEquals("quit", InputValidator.parseCommand("quit"));
 	}
 
 	@Test
