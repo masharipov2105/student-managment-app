@@ -85,11 +85,11 @@ public class StudentController{
 						break;
 
 					case "delete":
-						System.out.println("Selected in delete command");
+						RemoveStudentById();
 						break;
 
 					case "clear":
-						System.out.println("Selected in clear command");
+						ClearAllData();
 						break;
 
 					case "quit":
@@ -434,7 +434,74 @@ public class StudentController{
 
 
 
+	//The metod is remove data by ID
+	private void RemoveStudentById() throws StudentException{
+
+		System.out.print("enter ID: ");
+		String id = this.scanner.nextLine();
+
+		if (id == null || id.trim().isEmpty()){
+			
+			RemoveStudentById();
+		} else if (id.trim().equals("quit")){
+
+			System.out.println("Cancel");
+		} else{
+
+			try{
+
+				if (this.service.drop(Long.parseLong(id))){
+
+					System.out.println("Successfully deleted.");
+				} else{
+
+					System.out.println("No information found for the ID.");
+				}
+			} catch(NumberFormatException e){
+
+				System.out.println("The ID must be an integer.");
+			} catch(StudentException e){
+
+				System.out.println(e.getMessage());
+			}
+		}
+	}
 
 
+
+
+
+
+
+
+
+
+
+	// The method is clearr All data
+	private void ClearAllData(){
+
+		System.out.print("Delete all data ? (yes/no): ");
+
+		String result = this.scanner.nextLine();
+
+		if (result == null || result.trim().isEmpty()){
+
+			ClearAllData();
+		} else if (result.trim().equals("quit")){
+
+			System.out.println("Cancel");
+		}else if(result.equals("yes")){
+
+			this.service.dropAll();
+			System.out.println("Clear all data.");
+		} else if(result.equals("no")){
+
+			System.out.println("Operation cancelled");
+		} else{
+
+			System.out.println("enter 'yes' or 'no'");
+			ClearAllData();
+		}
+	}
 
 }
