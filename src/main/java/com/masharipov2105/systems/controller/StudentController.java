@@ -32,6 +32,22 @@ public class StudentController{
 
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public void start() throws StudentException{
 
 		System.out.println(this.banner);
@@ -39,7 +55,7 @@ public class StudentController{
 
 		while(this.isRun){
 
-			System.out.print("StudentManagement/ROOT > ");
+			System.out.print("StudentManagement > ");
 			String command = this.scanner.nextLine();
 
 			try{
@@ -61,11 +77,11 @@ public class StudentController{
 						break;
 
 					case "create":
-						CreateStudent();
+						CreateOrUpdateStudent("create");
 						break;
 
 					case "edit":
-						System.out.println("Selected in edit command");
+						CreateOrUpdateStudent("update");
 						break;
 
 					case "delete":
@@ -92,10 +108,24 @@ public class StudentController{
 		}
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// The method is show All students or 'The list is empty' message
 	private String PrintAllStudentList(){
 
-		String finalString = "";
+		String finalString = "\n";
 		if (this.service.showAll().size() == 0){
 
 			finalString = "The list is empty.";
@@ -108,6 +138,21 @@ public class StudentController{
 
 		return finalString;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// The metod is show information by ID number
 	private void PrintStudentById() throws StudentException{
@@ -125,7 +170,7 @@ public class StudentController{
 
 			try{
 
-				System.out.println(this.service.show(Long.parseLong(id)).toString());
+				System.out.println("\n" + this.service.show(Long.parseLong(id)).toString() + "\n");
 			} catch(NumberFormatException e){
 
 				System.out.println("The ID must be an integer.");
@@ -136,9 +181,21 @@ public class StudentController{
 		}
 	}
 
-	//The method is created new Studnet item
-	private void CreateStudent() throws StudentException{
 
+
+
+
+
+
+
+
+
+
+	//The method is create new or update Studnet item
+	private void CreateOrUpdateStudent(String regime) throws StudentException{
+
+		long id = 1l;
+		String parametr = "the";
 		boolean isContinue = true;
 		String firstName = null;
 		String lastName = null;
@@ -146,11 +203,47 @@ public class StudentController{
 		String gender = "male";
 		String password = null;
 
+		if (regime.equals("update")){
+
+			parametr = "new";
+
+			// id acquisition mechanism
+			while (isContinue){
+
+				System.out.print("enter id: ");
+				String data = this.scanner.nextLine();
+
+				if (data == null || data.trim().isEmpty()){
+
+					continue;
+				} else if(data.trim().equals("quit")){
+
+					System.out.println("Cancel");
+					isContinue = false;
+					break;
+				} else{
+
+					try{
+
+						this.service.show(Long.parseLong(data));
+						break;
+					} catch(NumberFormatException e){
+
+						System.out.println("The ID must be an integer.");
+					} catch(StudentException e){
+
+						System.out.println(e.getMessage());
+						isContinue = false;
+						break;
+					}
+				}
+			}
+		}
 
 		// firstName acquisition mechanism
 		while (isContinue){
 
-			System.out.print("enter firstName: ");
+			System.out.print(String.format("enter %s firstName: ", parametr));
 			String data = this.scanner.nextLine();
 
 			if (data == null || data.trim().isEmpty()){
@@ -177,7 +270,7 @@ public class StudentController{
 		// lastName acquisition mechanism
 		while (isContinue){
 
-			System.out.print("enter lastName: ");
+			System.out.print(String.format("enter %s lastName: ", parametr));
 			String data = this.scanner.nextLine();
 
 			if (data == null || data.trim().isEmpty()){
@@ -205,7 +298,7 @@ public class StudentController{
 		// age acquisition mechanism
 		while (isContinue){
 
-			System.out.print("enter age: ");
+			System.out.print(String.format("enter %s age: ", parametr));
 			String data = this.scanner.nextLine();
 
 			if (data == null || data.trim().isEmpty()){
@@ -233,7 +326,7 @@ public class StudentController{
 		// gender acquisition mechanism
 		while (isContinue){
 
-			System.out.print("enter gender(male/female): ");
+			System.out.print(String.format("enter %s gender(male/female): ", parametr));
 			String data = this.scanner.nextLine();
 
 			if (data == null || data.trim().isEmpty()){
@@ -261,7 +354,7 @@ public class StudentController{
 		// password acquisition mechanism
 		while (isContinue){
 
-			System.out.print("enter password: ");
+			System.out.print(String.format("enter %s password: ", parametr));
 			String data = this.scanner.nextLine();
 
 			if (data == null || data.trim().isEmpty()){
@@ -285,9 +378,9 @@ public class StudentController{
 			}
 		}
 
-		if (isContinue){
+		if (isContinue && regime.equals("create")){
 
-			StudentRequestModel newStudent = new StudentRequestModel(
+			StudentRequestModel student = new StudentRequestModel(
 
 				firstName,
 				lastName,
@@ -298,12 +391,50 @@ public class StudentController{
 
 			try{
 
-				this.service.create(newStudent);
+				this.service.create(student);
 				System.out.println("Successfully created!");
+			} catch(StudentException e){
+
+				System.out.println(e.getMessage());
+			}
+		} else if (isContinue && regime.equals("update")){
+
+			StudentRequestModel updateStudent = new StudentRequestModel(
+
+				firstName,
+				lastName,
+				age,
+				gender,
+				password
+			);
+
+			try{
+
+				this.service.update(id, updateStudent);
+				System.out.println("Successfully updated!");
 			} catch(StudentException e){
 
 				System.out.println(e.getMessage());
 			}
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
