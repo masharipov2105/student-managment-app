@@ -47,11 +47,12 @@ public class StudentController{
 				switch (InputValidator.parseCommand(command)){
 
 					case "help":
-						System.out.println("Selected in help command");
+						System.out.println("\n" + this.menu);
 						break;
 
 					case "list":
-						System.out.println("Selected in list command");
+						
+						System.out.println(PrintAllStudentList());
 						break;
 
 					case "show":
@@ -88,5 +89,21 @@ public class StudentController{
 				}
 			}
 		}
+	}
+
+	private String PrintAllStudentList(){
+
+		String finalString = "";
+		if (this.service.showAll().size() == 0){
+
+			finalString = "The list is empty.";
+		}
+
+		for (int i = 0; i < this.service.showAll().size(); i ++){
+
+			finalString += String.format("%d) %s", (i+1), this.service.showAll().get(i));
+		}
+
+		return finalString;
 	}
 }

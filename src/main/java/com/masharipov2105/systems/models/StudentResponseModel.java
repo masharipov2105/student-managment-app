@@ -94,4 +94,12 @@ public class StudentResponseModel{
 
 		this.createAt = newDate;
 	}
+
+	//overriding toString method
+	@Override
+	public String toString(){
+
+		String finalString = String.format("%d; %s; %s; %d; %s; %s", this.getId(), this.getFirstName(), this.getLastName(), this.getAge(), this.getGender(), String.valueOf(this.getCreateAt()));
+		return finalString;
+	}
 }

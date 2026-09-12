@@ -37,4 +37,12 @@ public class StudentResponseModelTest{
 		assertEquals("female", model.getGender());
 		assertEquals(LocalDate.now(), model.getCreateAt());
 	}
+
+	@Test
+	void testToString(){
+
+		StudentResponseModel model = new StudentResponseModel(1l,"Ali","Valiev",20,"male",LocalDate.now());
+
+		assertEquals(String.format("1; Ali; Valiev; 20; male; %s", String.valueOf(LocalDate.now())), model.toString());
+	}
 }
