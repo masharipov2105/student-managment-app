@@ -47,11 +47,12 @@ public class StudentController{
 				switch (InputValidator.parseCommand(command)){
 
 					case "help":
+
 						System.out.println("\n" + this.menu);
 						break;
 
 					case "list":
-						
+
 						System.out.println(PrintAllStudentList());
 						break;
 
@@ -60,7 +61,7 @@ public class StudentController{
 						break;
 
 					case "create":
-						System.out.println("Selected in create command");
+						CreateStudent();
 						break;
 
 					case "edit":
@@ -108,6 +109,7 @@ public class StudentController{
 		return finalString;
 	}
 
+	// The metod is show information by ID number
 	private void PrintStudentById() throws StudentException{
 
 		System.out.print("enter ID: ");
@@ -127,6 +129,177 @@ public class StudentController{
 			} catch(NumberFormatException e){
 
 				System.out.println("The ID must be an integer.");
+			} catch(StudentException e){
+
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+	//The method is created new Studnet item
+	private void CreateStudent() throws StudentException{
+
+		boolean isContinue = true;
+		String firstName = null;
+		String lastName = null;
+		int age = 0;
+		String gender = "male";
+		String password = null;
+
+
+		// firstName acquisition mechanism
+		while (isContinue){
+
+			System.out.print("enter firstName: ");
+			String data = this.scanner.nextLine();
+
+			if (data == null || data.trim().isEmpty()){
+
+				continue;
+			} else if(data.trim().equals("quit")){
+
+				System.out.println("Cancel");
+				isContinue = false;
+				break;
+			} else{
+
+				try{
+
+					firstName = InputValidator.parseName(data);
+					break;
+				} catch(InvalidNameException e){
+
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+
+		// lastName acquisition mechanism
+		while (isContinue){
+
+			System.out.print("enter lastName: ");
+			String data = this.scanner.nextLine();
+
+			if (data == null || data.trim().isEmpty()){
+
+				continue;
+			} else if(data.trim().equals("quit")){
+
+				System.out.println("Cancel");
+				isContinue = false;
+				break;
+			} else{
+
+				try{
+
+					lastName = InputValidator.parseName(data);
+					break;
+				} catch(InvalidNameException e){
+
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+
+
+		// age acquisition mechanism
+		while (isContinue){
+
+			System.out.print("enter age: ");
+			String data = this.scanner.nextLine();
+
+			if (data == null || data.trim().isEmpty()){
+
+				continue;
+			} else if(data.trim().equals("quit")){
+
+				System.out.println("Cancel");
+				isContinue = false;
+				break;
+			} else{
+
+				try{
+
+					age = InputValidator.parseAge(data);
+					break;
+				} catch(InvalidAgeException e){
+
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+
+
+		// gender acquisition mechanism
+		while (isContinue){
+
+			System.out.print("enter gender(male/female): ");
+			String data = this.scanner.nextLine();
+
+			if (data == null || data.trim().isEmpty()){
+
+				continue;
+			} else if(data.trim().equals("quit")){
+
+				System.out.println("Cancel");
+				isContinue = false;
+				break;
+			} else{
+
+				try{
+
+					gender = InputValidator.parseGender(data);
+					break;
+				} catch(InvalidGenderException e){
+
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+
+
+		// password acquisition mechanism
+		while (isContinue){
+
+			System.out.print("enter password: ");
+			String data = this.scanner.nextLine();
+
+			if (data == null || data.trim().isEmpty()){
+
+				continue;
+			} else if(data.trim().equals("quit")){
+
+				System.out.println("Cancel");
+				isContinue = false;
+				break;
+			} else{
+
+				try{
+
+					password = InputValidator.parsePassword(data);
+					break;
+				} catch(InvalidNameException e){
+
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+
+		if (isContinue){
+
+			StudentRequestModel newStudent = new StudentRequestModel(
+
+				firstName,
+				lastName,
+				age,
+				gender,
+				password
+			);
+
+			try{
+
+				this.service.create(newStudent);
+				System.out.println("Successfully created!");
 			} catch(StudentException e){
 
 				System.out.println(e.getMessage());
