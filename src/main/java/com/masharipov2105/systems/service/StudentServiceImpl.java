@@ -47,9 +47,14 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public StudentResponseModel show(long id){
+	public StudentResponseModel show(long id) throws StudentException{
 
 		StudentModel mod = this.repo.getId(id);
+		if (mod == null){
+
+			throw new StudentException("No information available for the ID.");
+		}
+		
 		StudentResponseModel newModel = new StudentResponseModel(
 
 			mod.getId(),

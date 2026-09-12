@@ -363,4 +363,13 @@ public class StudentServiceImplTest{
 		assertEquals(0, service.showAll().size());
 	}
 
+	@Test
+	void testShowNullValue(){
+
+		IdGenerator.reset();
+
+		StudentService service = new StudentServiceImpl();
+		Exception exp = assertThrows(StudentException.class, ()->{service.show(1l);});
+		assertEquals("No information available for the ID.", exp.getMessage());
+	}
 }

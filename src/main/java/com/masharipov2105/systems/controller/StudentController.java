@@ -56,7 +56,7 @@ public class StudentController{
 						break;
 
 					case "show":
-						System.out.println("Selected in show command");
+						PrintStudentById();
 						break;
 
 					case "create":
@@ -91,6 +91,7 @@ public class StudentController{
 		}
 	}
 
+	// The method is show All students or 'The list is empty' message
 	private String PrintAllStudentList(){
 
 		String finalString = "";
@@ -101,9 +102,35 @@ public class StudentController{
 
 		for (int i = 0; i < this.service.showAll().size(); i ++){
 
-			finalString += String.format("%d) %s", (i+1), this.service.showAll().get(i));
+			finalString += (String.format("%d) %s", (i+1), this.service.showAll().get(i)) + "\n");
 		}
 
 		return finalString;
+	}
+
+	private void PrintStudentById() throws StudentException{
+
+		System.out.print("enter ID: ");
+		String id = this.scanner.nextLine();
+
+		if (id == null || id.trim().isEmpty()){
+			
+			PrintStudentById();
+		} else if (id.trim().equals("quit")){
+
+			System.out.println("Cancel");
+		} else{
+
+			try{
+
+				System.out.println(this.service.show(Long.parseLong(id)).toString());
+			} catch(NumberFormatException e){
+
+				System.out.println("The ID must be an integer.");
+			} catch(StudentException e){
+
+				System.out.println(e.getMessage());
+			}
+		}
 	}
 }
